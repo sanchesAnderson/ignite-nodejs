@@ -136,12 +136,13 @@ app.get("/account", verifyIfExistsAccountCPF, (request, response) => {
 });
 
 app.delete("/account", verifyIfExistsAccountCPF, (request, response) => {
-    const { customer } = request;
+    const customerIndex = customers.findIndex(
+        (customer) => customer.cpf === cpf
+    );
+    
+    customers.splice(customerIndex, 1);
 
-    //splice
-    customers.splice(customer, 1);
-
-    return response.status(200).send(customers);
+    return response.status(204 ).send(customers);
 });
 
 app.get("/balance", verifyIfExistsAccountCPF, (request, response) => {
